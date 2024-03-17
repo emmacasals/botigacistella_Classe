@@ -161,12 +161,12 @@ namespace Botiga_i_cistella_2
                 Console.Write(productes[i] + ", ");
             }
         }
-        public int CostTotal(Producte[] productes)
+        public int CostTotal(Producte[] productes, int[] quantitats)
         {
             int cost = 0, costProducte;
             for (int i = 0; i < productes.Length; i++)
             {
-                costProducte = productes[i].Preu;
+                costProducte = productes[i].Preu * quantitats[i];
                 cost = cost + costProducte;
             }
             return cost;
