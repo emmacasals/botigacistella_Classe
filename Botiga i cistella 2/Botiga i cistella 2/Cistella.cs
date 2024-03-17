@@ -135,7 +135,7 @@ namespace Botiga_i_cistella_2
             }
             return -1;
         }
-        public void ComprarProducte(Producte[] productes, int[] quantitats)
+        public bool ComprarProducte(Producte[] productes, int[] quantitats)
         {
             if (nElements + productes.Length <= this.productes.Length)
             {
@@ -143,25 +143,30 @@ namespace Botiga_i_cistella_2
                 {
                     ComprarProducte(productes[i]);
                     nElements++;
+                    Array.Resize(ref productes, nElements);
                 }
                 return true;
             }
+            else
+                return false;
         }
         public void OrdenarCistella()
         {
 
         }
-        public void Mostra()
+        public void Mostra(Producte[] productes)
         {
-
+            for (int i = 0; i < productes.Length; i++)
+            {
+                Console.Write(productes[i] + ", ");
+            }
         }
-        public int CostTotal(Producte[] productes)
+        public int CostTotal(Producte[] productes, int[] quantitats)
         {
             int cost = 0, costProducte;
             for (int i = 0; i < productes.Length; i++)
             {
-                costProducte = productes[i].Preu;
-                
+                costProducte = productes[i].Preu * quantitats[i];
                 cost = cost + costProducte;
             }
             return cost;
