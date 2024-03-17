@@ -108,13 +108,44 @@ namespace Botiga_i_cistella_2
         }
 
         //Metodes
-        public void ComprarProducte(Producte producte, int quantitat)
+        public bool ComprarProducte(Producte producte, int quantitat)
         {
-
+            int posicio = EsapiLliure(producte);
+            if (posicio != -1)
+            {
+                productes[posicio] = producte;
+                nElements++;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public int EsapiLliure(Producte producte)
+        {
+            for (int i = 0; i < productes.Length; i++)
+            {
+                if (productes[i] == producte)
+                    return i;
+                if (productes[i] == null)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
         public void ComprarProducte(Producte[] productes, int[] quantitats)
         {
-
+            if (nElements + productes.Length <= this.productes.Length)
+            {
+                for (int i = 0; i < productes.Length; i++)
+                {
+                    ComprarProducte(productes[i]);
+                    nElements++;
+                }
+                return true;
+            }
         }
         public void OrdenarCistella()
         {
@@ -124,9 +155,16 @@ namespace Botiga_i_cistella_2
         {
 
         }
-        public void CostTotal()
+        public int CostTotal(Producte[] productes)
         {
-
+            int cost = 0, costProducte;
+            for (int i = 0; i < productes.Length; i++)
+            {
+                costProducte = productes[i].Preu;
+                
+                cost = cost + costProducte;
+            }
+            return cost;
         }
         public override string ToString()
         {
